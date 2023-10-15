@@ -33,15 +33,15 @@ params = {
     "loc_id": "0",
     "start": "0",
     "count": "20",
-    "udid": "81c09b13e49151d13ed4d8d3817b99c45cf0d399",
+    "udid": "81c09b13e49151d13ed4d8d3817b99c45cf0d399",  # 和请求头的一致
     "rom": "android",
-    "apikey": "0dad551ec0f84ed02907ff5c42e8ec70",
+    "apikey": "", # 需填写你的key，暂时没分析出生成逻辑
     "s": "rexxar_new",
     "channel": "Yingyongbao_Market",
-    "timezone": "Asia/Shanghai",
-    "device_id": "81c09b13e49151d13ed4d8d3817b99c45cf0d399",
+    "timezone": "Asia/Shanghai",  # 时区
+    "device_id": "",  # 设备id
     "os_rom": "android",
-    "apple": "037d50d1066ddb8b0b53dd41e029db0c",
+    "apple": "",  # 暂未分析，多次固定不变
     "sugar": "46007",
     "_sig": sig_ts[0],
     "_ts": sig_ts[1]
