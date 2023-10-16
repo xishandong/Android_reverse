@@ -22,6 +22,6 @@ rpc.exports = {
 script = session.create_script(src)
 script.load()
 
-wanna_args = script.exports.CustomizationFunctionName("参数列表")
+wanna_args = script.exports_sync.CustomizationFunctionName("参数列表")
 print(wanna_args)
 
