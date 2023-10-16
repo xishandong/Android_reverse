@@ -141,3 +141,35 @@ script = session.create_script(scr)
 > 小总结：
 > 
 > frida hook参数函数的时候，前面的基本都不变，只是hook脚本会发送改变
+
+### frida rpc调用so层函数
+
+```python
+import frida
+
+rdev = frida.get_remote_device()
+session = rdev.attach("名称")
+
+
+# 整体思路和hook差不多，但是需要在rpc里面进行导出
+src = """
+rpc.exports = {
+    CustomizationFunctionName: function(参数列表) {
+        var res;
+        Java.perform(function(){
+           var CustomizationObjectName = Java.use("包名.类名");
+           res = CustomizationObjectName.函数名(参数列表); 
+        });
+        return res;
+    }
+}
+
+"""
+
+script = session.create_script(src)
+script.load()
+
+wanna_args = script.exports.CustomizationFunctionName("参数列表")
+print(wanna_args)
+```
+其实rpc也很简单，就是稍微导出一下方法就可以了.
