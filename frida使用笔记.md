@@ -173,3 +173,41 @@ wanna_args = script.exports.CustomizationFunctionName("参数列表")
 print(wanna_args)
 ```
 其实rpc也很简单，就是稍微导出一下方法就可以了.
+
+## frida过检测
+### 常见的frida检测
+1、检测文件名
+
+2、检测端口
+
+3、双进程保护
+
+4、检测D-Bus
+
+5、检测/proc/pid/maps映射文件
+
+6、检测/proc/pid/task/tip/status
+
+7、检测/data/local/tmp目录
+### 利用第三方库以及转化端口达到效果
+我们在注入frida的时候，经常会遇到一注入app就闪退的情况，这种情况说明被检测到了frida
+
+这里我们采用绕过的方案
+使用Frida的魔改版本 Hluda来隐藏Frida特征，其介绍：跟随 FRIDA 上游自动修补程序，并为 Android 构建反检测版本的 frida-server。使用方式跟官方Frida没有区别。
+
+github地址：https://github.com/hzzheyang/strongR-frida-android/
+
+官方Frida默认端口是27042，现在我们来修改启动端口
+```bash
+ ./hlu-server_x8664 -l 0.0.0.0:8080
+```
+```bash
+adb forward tcp:8080 tcp:8080
+frida -H 127.0.0.1:8080 -f com.shizhuang.duapp -l Hook.js
+```
+使用python脚本连接时
+```python
+host = '127.0.0.1:8080'
+manager = frida.get_device_manager()
+device= manager.add_remote_device(host)
+```
